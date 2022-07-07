@@ -19,6 +19,8 @@ const Home: NextPage = () => {
             Bem vindo(a) a minha própria página!
           </h1>
 
+          <img className="img-fluid mt-4" src="/xicara.jpg" width="100%" />
+
           <p className={styles.description}>
             Get started by editing{' '}
             <code className={styles.code}>pages/index.tsx</code>
