@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import { Layout } from '../components/Layout';
+import XicaraImage from '../public/xicara.jpg';
 
 const Home: NextPage = () => {
   return (
@@ -19,7 +20,23 @@ const Home: NextPage = () => {
             Bem vindo(a) a minha própria página!
           </h1>
 
-          <img className="img-fluid mt-4" src="/xicara.jpg" width="100%" />
+          {/* imagem local */}
+          <Image 
+            src={XicaraImage} 
+            alt="xicara"
+            width={384}
+            height={250}
+            className="mt-4"
+          />
+
+          {/* imagem remota */}
+          {/* <Image
+            src="https://www.google.com.br/logos/google.jpg"
+            alt="sea"
+            width={100}
+            height={50}
+            className="mt-4"
+          /> */}
 
           <p className={styles.description}>
             Get started by editing{' '}
