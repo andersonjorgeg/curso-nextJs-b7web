@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  list-style: none;
+  padding: 0;
+}
+
+.linkItem {
+  padding: 0 15px;
+}
+
+.linkItem a {
+  text-decoration: none;
+  color: rgb(71, 66, 66);
+  font-size: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.linkItem a:hover {
+  color: rgb(194, 53, 53);
+  border-bottom: 3px solid rgb(194, 53, 53);
+}
+
+.linkActive a {
+  color: rgb(194, 53, 53);
+  border-bottom: 3px solid rgb(194, 53, 53);
+}
