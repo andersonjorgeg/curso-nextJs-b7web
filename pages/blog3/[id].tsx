@@ -17,7 +17,22 @@ const BlogItem = ({ post }: Props) => {
     <Layout>
       <div>
         <Head>
-          <title>Blog 3 - {post.title}</title>
+          {/* SEO - dinâmica */}
+          <title>{post.title}</title>
+          <meta name="title" content={post.title}/>
+          <meta name="description" content={post.body.substring(0, 25) + '...'}/>
+
+          <meta property="og:type" content="website"/>
+          <meta property="og:url" content={`http://localhost:3000/blog3/${post.id}`}/>
+          <meta property="og:title" content={post.title}/>
+          <meta property="og:description" content={post.body.substring(0, 25) + '...'}/>
+          <meta property="og:image" content="http://localhost:3000/xicara.jpg"/>
+
+          <meta property="twitter:card" content="summary_large_image"/>
+          <meta property="twitter:url" content={`http://localhost:3000/blog3/${post.id}`}/>
+          <meta property="twitter:title" content={post.title}/>
+          <meta property="twitter:description" content={post.body.substring(0, 25) + '...'}/>
+          <meta property="twitter:image" content="http://localhost:3000/xicara.jpg"></meta>
         </Head>
         <h1>Blog</h1>
         <h2>{post.title}</h2>
