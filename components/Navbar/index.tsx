@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { NavigationLinks } from '../../util/data';
+import { NavigationLinks } from '../../utils/data';
 import styles from '../Navbar/Navbar.module.css';
 
 export const Navbar = () => {
