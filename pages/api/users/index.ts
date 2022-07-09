@@ -7,7 +7,7 @@ const handlerGet: NextApiHandler = async (req, res) => {
   // receber dados da url da requisição
   const { search, age  } = req.query;
 
-  res.json(Users);
+  res.status(200).json(Users);
 }
 
 // inserir novos usuários
@@ -16,7 +16,7 @@ const handlerPost: NextApiHandler = async (req, res) => {
   // receber dados do corpo da requisição
   const { name, age } = req.body;
 
-  res.json({status: true, user: { name, age}});
+  res.status(201).json({status: true, user: { name, age}});
 }
 
 const handler: NextApiHandler = (req, res) => {
