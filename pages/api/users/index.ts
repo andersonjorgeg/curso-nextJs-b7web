@@ -3,12 +3,20 @@ import { Users } from '../../../utils/users';
 
 // pegar todos os usuários
 const handlerGet: NextApiHandler = async (req, res) => {
+
+  // receber dados da url da requisição
+  const { search, age  } = req.query;
+
   res.json(Users);
 }
 
 // inserir novos usuários
 const handlerPost: NextApiHandler = async (req, res) => {
-  res.json({status: true});
+
+  // receber dados do corpo da requisição
+  const { name, age } = req.body;
+
+  res.json({status: true, user: { name, age}});
 }
 
 const handler: NextApiHandler = (req, res) => {
