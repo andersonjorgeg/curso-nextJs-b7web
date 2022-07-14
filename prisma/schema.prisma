@@ -21,7 +21,23 @@ model User {
   name      String
   email     String   @unique
   createdAt DateTime @default(now()) // now() função de data e hora atual
+  active    Boolean  @default(true)
+  role      Role     @default(USER)
 
   // propriedades do model
   @@map("users") // nome da tabela no banco de dados 
+}
+
+//tipo enum
+enum Role {
+  USER
+  ADMIN
+}
+
+model Photos {
+  id     Int     @id @default(autoincrement())
+  url    String
+  legend String? // o sinal ? indica que o campo não é obrigatório, ou seja, pode ser nulo.
+
+  @@map("photos")
 }
