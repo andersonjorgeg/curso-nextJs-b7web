@@ -9,3 +9,19 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+// criar model do banco de dados
+// sintaxe:
+// model <nome-do-model> {
+//   <nome-da-coluna> <tipo-da-coluna> <@primary> <@unique> <@index> <@notNull> <@default>
+// }
+model User {
+  // campos do banco de dados
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  createdAt DateTime @default(now()) // now() função de data e hora atual
+
+  // propriedades do model
+  @@map("users") // nome da tabela no banco de dados 
+}
