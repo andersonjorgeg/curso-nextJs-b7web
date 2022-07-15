@@ -23,21 +23,28 @@ model User {
   createdAt DateTime @default(now()) // now() função de data e hora atual
   active    Boolean  @default(true)
   role      Role     @default(USER)
+  // relacionamentos
+  photos    Photo[]
 
   // propriedades do model
   @@map("users") // nome da tabela no banco de dados 
+}
+
+model Photo {
+  id     Int     @id @default(autoincrement())
+  url    String
+  legend String? // o sinal ? indica que o campo não é obrigatório, ou seja, pode ser nulo.
+  // relacionamentos
+  // fields é a chave estrangeira, ou seja, o id do usuário que criou a foto
+  // reference é a chave primária, ou seja, o id da foto
+  user   User    @relation(fields: [userId], references: [id]) 
+  userId Int
+
+  @@map("photos")
 }
 
 //tipo enum
 enum Role {
   USER
   ADMIN
-}
-
-model Photos {
-  id     Int     @id @default(autoincrement())
-  url    String
-  legend String? // o sinal ? indica que o campo não é obrigatório, ou seja, pode ser nulo.
-
-  @@map("photos")
 }
