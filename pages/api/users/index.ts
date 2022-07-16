@@ -2,13 +2,16 @@ import { NextApiHandler } from 'next';
 import { Users } from '../../../utils/users';
 import prisma from '../../../libs/prisma';
 
-// pegar todos os usuários
+// pegar usuários
 const handlerGet: NextApiHandler = async (req, res) => {
 
-  // receber dados da url da requisição
-  const { search, age  } = req.query;
-
-  res.status(200).json(Users);
+  // pegar usuários ativos
+  const users = await prisma.user.findMany({
+    where: {
+      active: true
+    }
+  });
+  res.json({status: true, users});
 }
 
 // inserir novos usuários
