@@ -1,5 +1,6 @@
 import { NextApiHandler } from 'next';
 import { Users } from '../../../utils/users';
+import prisma from '../../../libs/prisma';
 
 // pegar todos os usuários
 const handlerGet: NextApiHandler = async (req, res) => {
