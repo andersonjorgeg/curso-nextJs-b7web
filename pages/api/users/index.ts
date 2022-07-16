@@ -15,9 +15,14 @@ const handlerGet: NextApiHandler = async (req, res) => {
 const handlerPost: NextApiHandler = async (req, res) => {
 
   // receber dados do corpo da requisição
-  const { name, age } = req.body;
+  const { name, email } = req.body;
 
-  res.status(201).json({status: true, user: { name, age}});
+  // inserir novo usuário
+  const newUser = await prisma.user.create({
+    data: { name, email, }
+  })
+
+  res.status(201).json({status: true, user: newUser});
 }
 
 const handler: NextApiHandler = (req, res) => {
