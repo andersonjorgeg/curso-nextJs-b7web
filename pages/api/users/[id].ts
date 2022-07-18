@@ -75,6 +75,23 @@ const handlerPut: NextApiHandler = async (req, res) => {
   res.status(404).json({ error: 'Não foi possível alterar este usuário.' });
 }
 
+const handlerDelete: NextApiHandler = async (req, res) => {
+  // identificar o usuário que está sendo deletado
+  const { id} = req.query;
+
+  // deletar o usuário
+  const deleteUser = await prisma.user.delete({
+    where: {
+      id: parseInt(id as string)
+    }
+  }).catch(() => {
+    res.json({error: 'Usuário não existe!'});
+  });
+  if (deleteUser) {
+    res.json({status: true});
+  }
+}
+
 const handler: NextApiHandler = async (req, res) => {
   switch (req.method) {
     case 'GET': 
@@ -82,6 +99,9 @@ const handler: NextApiHandler = async (req, res) => {
       break;
     case 'PUT':
       handlerPut(req, res);
+      break;
+    case 'DELETE':
+      handlerDelete(req, res);
       break;
   }
 }
