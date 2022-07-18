@@ -31,15 +31,40 @@ const handlerPut: NextApiHandler = async (req, res) => {
   // pegar os dados do corpo da requisição para atualizar o usuário
   const { name, active } = req.body;
 
+  // criar objeto que inicia como vazio
+  const data: {
+    // tipando os dados com typescript
+    // ? indica que o campo pode ser opcional
+    name?: string;
+    active?: boolean;
+  } = {};
+
+  // verificar se o nome do usuário foi passado
+  if (name) {
+    data.name = name;
+  }
+  // verificar se o usuário está ativo
+  if (active) {
+    // ler o valor do campo ativo
+    switch (active) {
+      case 'true':
+      case '1':
+        data.active = true;
+        break;
+      case 'false':
+      case '0':
+        data.active = false;
+        break;
+    }
+  }
+
   // atualizar os dados
   const updateUser = await prisma.user.update({
     where: {
       id: parseInt(id as string)
     },
-    data: {
-      name,
-      active: active === 'true' ? true : false
-    }
+    // objeto com os dados para atualizar
+    data 
   })
   
   if(updateUser) {
