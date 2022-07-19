@@ -9,7 +9,32 @@ const handlerGet: NextApiHandler = async (req, res) => {
   const users = await prisma.user.findMany({
     // filtrar campos
     where: {
-      active: true
+      // startsWith - inicia com
+      // endsWith - termina com
+      // gt - maior que
+      // lt - menor que
+      // gte - maior ou igual
+      // lte - menor ou igual
+      // contains - contém
+      // notContains - não contém
+      // equals - igual
+      // notEquals - diferente
+      // in - está no array
+      // notIn - não está no array
+      // isNull - é nulo
+      // isNotNull - não é nulo
+      
+      // OR - ou, AND - e, NOT - não
+      OR: [
+        { 
+          name: 'Alan Paulo'
+        },
+        {
+          name: {
+            startsWith: 'A'
+          }
+        }
+      ]
     },
     // selecionando campos
     select: {
