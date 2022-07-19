@@ -7,8 +7,15 @@ const handlerGet: NextApiHandler = async (req, res) => {
 
   // pegar usuários ativos
   const users = await prisma.user.findMany({
+    // filtrar campos
     where: {
       active: true
+    },
+    // selecionando campos
+    select: {
+      id: true,
+      name: true,
+      email: true
     }
   });
   res.json({status: true, users});
