@@ -9,39 +9,21 @@ const handlerGet: NextApiHandler = async (req, res) => {
   const users = await prisma.user.findMany({
     // filtrar campos
     where: {
-      // startsWith - inicia com
-      // endsWith - termina com
-      // gt - maior que
-      // lt - menor que
-      // gte - maior ou igual
-      // lte - menor ou igual
-      // contains - contém
-      // notContains - não contém
-      // equals - igual
-      // notEquals - diferente
-      // in - está no array
-      // notIn - não está no array
-      // isNull - é nulo
-      // isNotNull - não é nulo
-      
-      // OR - ou, AND - e, NOT - não
-      OR: [
-        { 
-          name: 'Alan Paulo'
-        },
-        {
-          name: {
-            startsWith: 'A'
-          }
-        }
-      ]
+      active: true
     },
-    // selecionando campos
     select: {
       id: true,
       name: true,
       email: true
-    }
+    },
+    // Ordenando os dados
+    orderBy: [
+      // asc - crescente
+      // desc - decrescente
+      // ! Obs: quando for só um campo, pode usar um objeto, mas quando for mais de um campo, deve-se usar um array de objetos.
+      {name: 'asc'},
+      {id: 'desc'}
+    ],
   });
   res.json({status: true, users});
 }
