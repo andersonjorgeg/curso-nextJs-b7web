@@ -5,8 +5,28 @@ import prisma from '../../../libs/prisma';
 // pegar usuários
 const handlerGet: NextApiHandler = async (req, res) => {
 
+  //paginação
+  const {page} = req.query;
+
+  // take - quantidade de registros
+  let take = 2;
+
+  // skip - pula páginas
+  let skip = 0;
+  
+  if(page) {
+    skip = (parseInt(page as string) - 1) * take;
+  }
+
   // pegar usuários ativos
   const users = await prisma.user.findMany({
+
+    // skip - pular registros
+    skip,
+
+    // take - pegar registros
+    take,
+
     // filtrar campos
     where: {
       active: true
@@ -17,13 +37,9 @@ const handlerGet: NextApiHandler = async (req, res) => {
       email: true
     },
     // Ordenando os dados
-    orderBy: [
-      // asc - crescente
-      // desc - decrescente
-      // ! Obs: quando for só um campo, pode usar um objeto, mas quando for mais de um campo, deve-se usar um array de objetos.
-      {name: 'asc'},
-      {id: 'desc'}
-    ],
+    orderBy: {
+     id: 'asc'
+    }
   });
   res.json({status: true, users});
 }
