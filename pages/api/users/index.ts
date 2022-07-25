@@ -53,9 +53,16 @@ const handlerPost: NextApiHandler = async (req, res) => {
   // inserir novo usuário
   const newUser = await prisma.user.create({
     data: { name, email, }
+  }).catch((event) => {
+    if(event.meta.target.includes('email')) {
+      res.status(400).json({status: false, error: 'Email já cadastrado'});
+    } else {
+      res.status(400).json({status: false, error: 'Erro ao cadastrar usuário'});
+    }
   })
-
-  res.status(201).json({status: true, user: newUser});
+  if(newUser) {
+    res.status(201).json({status: true, user: newUser});
+  }
 }
 
 const handler: NextApiHandler = (req, res) => {
