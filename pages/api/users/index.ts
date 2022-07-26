@@ -1,46 +1,16 @@
 import { NextApiHandler } from 'next';
 import { Users } from '../../../utils/users';
 import prisma from '../../../libs/prisma';
+import api from '../../../libs/api';
 
 // pegar usuários
 const handlerGet: NextApiHandler = async (req, res) => {
 
-  //paginação
   const {page} = req.query;
 
-  // take - quantidade de registros
-  let take = 2;
+  // usando o conceito de DRY - Don't Repeat Yourself
+  const users = await api.getAllUsers(parseInt(page as string));
 
-  // skip - pula páginas
-  let skip = 0;
-  
-  if(page) {
-    skip = (parseInt(page as string) - 1) * take;
-  }
-
-  // pegar usuários ativos
-  const users = await prisma.user.findMany({
-
-    // skip - pular registros
-    skip,
-
-    // take - pegar registros
-    take,
-
-    // filtrar campos
-    where: {
-      active: true
-    },
-    select: {
-      id: true,
-      name: true,
-      email: true
-    },
-    // Ordenando os dados
-    orderBy: {
-     id: 'asc'
-    }
-  });
   res.json({status: true, users});
 }
 

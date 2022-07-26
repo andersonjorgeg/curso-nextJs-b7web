@@ -1,8 +1,14 @@
 import { Layout } from '../components/Layout';
 import Head from 'next/head';
 import Styles from '../styles/usuarios.module.css';
+import api from '../libs/api';
+import { User } from '../types/User';
 
-const Usuarios = () => {
+type Props = {
+  users: User[];
+}
+
+const Usuarios = ({ users }: Props ) => {
   return (
     <Layout>
       <div>
@@ -12,6 +18,13 @@ const Usuarios = () => {
         <h1>Página Usuários</h1>
 
         {/* Consultar API criada nas aulas */}
+        <ul>
+          {users.map((item, index) => (
+            <li key={index}>
+              <p>{item.name}</p>
+            </li>
+          ))}
+        </ul>
 
 
       </div>
@@ -24,11 +37,12 @@ export const getServerSideProps = async () => {
 
   // DRY - Don't Repeat Yourself
   // DRY - serve para não repetir código
+  const users = await api.getAllUsers(0);
   
 
   return {
     props: {
-
+      users
     }
   }
 }
